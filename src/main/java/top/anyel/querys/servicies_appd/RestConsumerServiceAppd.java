@@ -5,14 +5,14 @@ import org.springframework.stereotype.Service;
 import top.anyel.querys.repositories_appd.RestConsumerRepository;
 
 @Service
-public class RestConsumerService {
-
+public class RestConsumerServiceAppd {
     @Autowired
     private RestConsumerRepository restConsumerRepository;
 
-    public String getPokemon(int id) {
-        return restConsumerRepository.getPokemon(id);
+    public Integer getNumberAppd() {
+        return restConsumerRepository.getNumberAppd();
     }
+
 
 
 }

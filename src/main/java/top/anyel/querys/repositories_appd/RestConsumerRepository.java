@@ -20,7 +20,8 @@ public class RestConsumerRepository {
         RestConsumerRepository restConsumer = new RestConsumerRepository(new AppEnvironment());
         System.out.println(restConsumer.BASE_URL);
     }
-    public String getPokemon(int id) {
-        return restTemplate.getForObject(BASE_URL + "/pokemon/" + id, String.class);
+    public Integer getNumberAppd() {
+        return restTemplate.getForObject(BASE_URL, Integer.class);
     }
+
 }
