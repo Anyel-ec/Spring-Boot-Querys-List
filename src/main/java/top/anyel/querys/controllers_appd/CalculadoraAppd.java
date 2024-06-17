@@ -12,12 +12,10 @@ import top.anyel.querys.servicies_appd.CalculadoraServiceAppd;
 public class CalculadoraAppd {
     @Autowired
     private CalculadoraServiceAppd calculadoraServiceAppd;
-    private GenerateRepositoryAppd generateRepositoryAppd;
 
 
 
-    public int a = generateRepositoryAppd.generateNumberRamdon();
-    public int b = generateRepositoryAppd.generateNumberRamdon();
+
     @GetMapping("/sumar")
     public int sumar(int a, int b){
         return calculadoraServiceAppd.sumar(a, b);
