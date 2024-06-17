@@ -9,15 +9,14 @@ import top.anyel.querys.models_appd.PersonAppd;
 import top.anyel.querys.servicies_appd.PersonAppdService;
 
 import java.net.URI;
+import java.time.LocalDate;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1")
 public class PersonController {
 
     @Autowired
     private PersonAppdService personAppdService;
-
-
     @GetMapping("/")
     public ResponseEntity<Void> index() {
         try {
@@ -33,25 +32,48 @@ public class PersonController {
     }
 
     @GetMapping("/person/{id}")
-    public ResponseEntity<?> getPersonById(Long id) {
+    public ResponseEntity<?> getPersonById(@PathVariable Long id) {
         return ResponseEntity.ok(personAppdService.getPersonAppdById(id));
     }
 
     @PostMapping("/person")
-    public ResponseEntity<?> savePerson(PersonAppd personAppd) {
+    public ResponseEntity<?> savePerson(@RequestBody PersonAppd personAppd) {
         return ResponseEntity.ok(personAppdService.save(personAppd));
     }
 
     @PutMapping("/person/{id}")
-    public ResponseEntity<?> updatePerson(Long id, PersonAppd personAppd) {
+    public ResponseEntity<?> updatePerson(@RequestParam Long id, @RequestBody PersonAppd personAppd) {
         return ResponseEntity.ok(personAppdService.updatePersonAppd(id, personAppd));
     }
 
     @DeleteMapping("/person/{id}")
-    public ResponseEntity<?> deletePerson(Long id) {
+    public ResponseEntity<?> deletePerson(@RequestParam Long id) {
         personAppdService.deletePersonAppd(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/person/age")
+    public ResponseEntity<?> calculateAge(@RequestParam Long id) {
+        return ResponseEntity.ok("la edad es "+ personAppdService.calculateAge(personAppdService.getPersonAppdById(id).getBirthdate_appd()));
+    }
+
+    @GetMapping("/person/validar/{identification}")
+    public ResponseEntity<?> validationIdentificationEcuatorian(@PathVariable String identification) {
+        return ResponseEntity.ok(personAppdService.validationIdentificationEcuatorian(identification));
+    }
+
+    @GetMapping("/person/estado/{city}")
+    public ResponseEntity<?> searchEstadoByCity(@PathVariable String city) {
+        return ResponseEntity.ok(personAppdService.searchEstadoByCity(city));
+    }
+
+    @GetMapping("/person/retire/{id}")
+    public ResponseEntity<?> ageToRetire(@PathVariable Long id) {
+        LocalDate birthdate = personAppdService.getPersonAppdById(id).getBirthdate_appd();
+        return ResponseEntity.ok(personAppdService.ageToRetire(birthdate));
+
+    }
+
 
 
 }
